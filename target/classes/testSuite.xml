@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="testOnlinerBy" verbose="1">
+
+    <test name="Testing steam functionality">
+        <parameter name="year" value="1980"/>
+        <parameter name="month" value="September"/>
+        <parameter name="day" value="12"/>
+        <classes>
+            <class name="steam.tests.TestSteam"/>
+        </classes>
+    </test>
+</suite>
