@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.TestNG;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
+
 import java.util.concurrent.TimeUnit;
 
 public class BaseEntity extends TestNG {
@@ -18,7 +19,7 @@ public class BaseEntity extends TestNG {
     protected final Wait<WebDriver> wait = new WebDriverWait(getDriver(), Integer.parseInt(PropsHelper.getProperty("explicit_wait")));
 
     @BeforeTest
-    public void before(){
+    public void before() {
         driver = getDriver();
         driver.get(PropsHelper.getProperty("url"));
         int stand_wait = Integer.parseInt(PropsHelper.getProperty("standard_wait"));
@@ -27,7 +28,7 @@ public class BaseEntity extends TestNG {
     }
 
     @AfterTest
-    public void after(){
+    public void after() {
         Browser.getInstance().getDriver().close();
     }
 

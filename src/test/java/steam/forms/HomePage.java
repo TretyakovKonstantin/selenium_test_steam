@@ -30,13 +30,8 @@ public class HomePage extends BaseForm {
     }
 
     public ActionsPage selectGamesComboBoxElement(String name) {
-//        try {
         getGamesComboBox().selectItem(By.xpath(String.format(gamesLocator, name)));
         return new ActionsPage(driver);
-//        } catch (ElementNotVisibleException e) {
-//            getGamesComboBox().clickAndSelectItem(By.xpath(String.format(gamesLocator, name)));
-//            return new ActionsPage(driver);
-//        }
     }
 
     public void chooseLanguage() {

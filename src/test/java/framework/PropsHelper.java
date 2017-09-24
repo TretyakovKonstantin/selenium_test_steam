@@ -37,8 +37,8 @@ public class PropsHelper {
 
     private static Properties getLocProps() {
         if (locProps == null) {
-        String lang = props.getProperty("language");
-           locProps = getProps(String.format(locPropsPlace, lang));
+            String lang = props.getProperty("language");
+            locProps = getProps(String.format(locPropsPlace, lang));
         }
 
         return locProps;

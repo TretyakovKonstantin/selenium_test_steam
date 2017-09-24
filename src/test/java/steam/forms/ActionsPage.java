@@ -1,6 +1,7 @@
 package steam.forms;
 
 import framework.BaseForm;
+import framework.PatternHelper;
 import framework.PropsHelper;
 import framework.elements.Tab;
 import framework.exceptions.NotAllElementsHasBeenFoundException;
@@ -11,6 +12,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,7 +38,7 @@ public class ActionsPage extends BaseForm {
         currentTab.goToTab();
     }
 
-    public void getTheBestDiscount() throws NotAllElementsHasBeenFoundException, InterruptedException {
+    public int[] getTheBestDiscount() throws NotAllElementsHasBeenFoundException, InterruptedException {
         By discountsBy = By.xpath(discountsLocator);
         By pricesBy = By.xpath(pricesLocator);
         wait.until(ExpectedConditions.stalenessOf(getElements(discountsBy).get(getElements(discountsBy).size() - 1)));
@@ -56,24 +59,22 @@ public class ActionsPage extends BaseForm {
                 maxDiscountIndex = i;
             }
         }
-        Pattern pattern = Pattern.compile("\\d+[.]?\\d*");
         String priceStr = prices.get(maxDiscountIndex).getText().replaceAll(",", ".");
-        Matcher matcher = pattern.matcher(priceStr);
+
+        int price = PatternHelper.getIntFromString(priceStr);
+
         discounts.get(maxDiscountIndex).click();
-        if (matcher.find()) {
-            int price = Integer.parseInt(matcher.group());
-        }
-
-
+        return new int[]{price, maxDiscount};
     }
 
-    public void confirmAgeIfNeeded(String strYear, String month, String strDay) {
+    public GamePage confirmAgeIfNeeded(String strYear, String month, String strDay) {
         if (driver.getCurrentUrl().contains("agecheck")) {
             int year = Integer.parseInt(strYear);
             int day = Integer.parseInt(strDay);
             AgeCheckPage ageCheckPage = new AgeCheckPage();
             ageCheckPage.confirmAge(day, month, year);
         }
+        return new GamePage();
     }
 
 
