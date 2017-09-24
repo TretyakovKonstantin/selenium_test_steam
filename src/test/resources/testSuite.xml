@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="testOnlinerBy" verbose="1">
+<suite name="testSteam" verbose="1">
 
     <test name="Testing steam functionality">
         <parameter name="year" value="1980"/>

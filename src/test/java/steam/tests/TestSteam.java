@@ -11,12 +11,14 @@ import steam.forms.GamePage;
 import steam.forms.HomePage;
 import steam.forms.InstallSteamPage;
 
+import java.io.File;
+
 
 public class TestSteam extends BaseEntity {
     @Test
     @Parameters({"year", "month", "day"})
     public void testSteam(String year, String month, String day) throws InterruptedException, NotAllElementsHasBeenFoundException {
-        HomePage homePage = new HomePage(getDriver());
+        HomePage homePage = new HomePage();
         homePage.chooseLanguage();
 
         ActionsPage actionsPage = homePage.selectGamesComboBoxElement(PropsHelper.getLocProperty("actions"));
@@ -24,10 +26,14 @@ public class TestSteam extends BaseEntity {
         double[] priceAndDiscount = actionsPage.getTheBestDiscount();
         GamePage gamePage = actionsPage.confirmAgeIfNeeded(year, month, day);
 
-        gamePage.checkPriceAndDiscount(priceAndDiscount);
+        Assert.assertTrue(gamePage.checkPriceAndDiscount(priceAndDiscount));
 
         InstallSteamPage installSteamPage = gamePage.goToInstallSteamPage();
+        System.out.println(installSteamPage.getNextSteamName());
+        String steamName = installSteamPage.getNextSteamName();
+        File steamFile = new File(PropsHelper.getProperty("rel_path_to_setup"));
+
         installSteamPage.DownloadSteam();
-        Thread.sleep(600000);
+        installSteamPage.waitUntilFileDownloads(steamFile);
     }
 }

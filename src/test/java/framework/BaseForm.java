@@ -3,6 +3,7 @@ package framework;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.io.File;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,5 +25,14 @@ public class BaseForm extends BaseEntity {
         return getDriver().findElement(by);
     }
 
+    public void waitUntilFileDownloads(File file) {
+        while (!file.exists()) {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }

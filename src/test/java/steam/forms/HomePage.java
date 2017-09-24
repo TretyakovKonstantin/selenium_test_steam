@@ -4,7 +4,6 @@ import framework.BaseForm;
 import framework.PropsHelper;
 import framework.elements.ComboBox;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
@@ -12,7 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class HomePage extends BaseForm {
-    private WebDriver driver;
 
     private String gamesLocator = "//a[@class = 'popup_menu_item' and contains(., \"%s\")]";
     private String gamesListLocator = "//div[@id=\"genre_tab\"]/span[@class=\"pulldown\"]";
@@ -20,18 +18,15 @@ public class HomePage extends BaseForm {
 
     private By languageComboBoxLocator = By.id("language_pulldown");
 
-    public HomePage(WebDriver driver) {
-        this.driver = driver;
-    }
-
     public ComboBox getGamesComboBox() {
         By comboBoxLocator = By.xpath(gamesListLocator);
         return new ComboBox(comboBoxLocator);
     }
 
     public ActionsPage selectGamesComboBoxElement(String name) {
-        getGamesComboBox().selectItem(By.xpath(String.format(gamesLocator, name)));
-        return new ActionsPage(driver);
+        System.out.println(name);
+        getGamesComboBox().selectNotStaleItem(By.xpath(String.format(gamesLocator, name)));
+        return new ActionsPage();
     }
 
     public void chooseLanguage() {

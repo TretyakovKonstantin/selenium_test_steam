@@ -25,9 +25,8 @@ public class ActionsPage extends BaseForm {
     private String discountsLocator = "//div[@id=\"DiscountsRows\"]//div[@class=\"discount_pct\"]\n";
     private String pricesLocator = "//div[@id=\"DiscountsRows\"]//div[@class=\"discount_original_price\"]";
 
-    public ActionsPage(WebDriver driver) {
+    public ActionsPage() {
         super();
-        this.driver = driver;
         By popularNew = By.xpath(String.format(tabLocator, "Популярные новинки"));
         currentTab = new Tab(popularNew);
     }
@@ -68,7 +67,7 @@ public class ActionsPage extends BaseForm {
     }
 
     public GamePage confirmAgeIfNeeded(String strYear, String month, String strDay) {
-        if (driver.getCurrentUrl().contains("agecheck")) {
+        if (getDriver().getCurrentUrl().contains("agecheck")) {
             int year = Integer.parseInt(strYear);
             int day = Integer.parseInt(strDay);
             AgeCheckPage ageCheckPage = new AgeCheckPage();

@@ -33,8 +33,6 @@ public class GamePage extends BaseForm {
         double thisFinalPrice = PatternHelper.getIntFromString(thisFinalPriceStr);
 
         double thisOriginPrice = PatternHelper.getIntFromString(getElement(priceOriginalLocator).getText());
-
-        System.out.println((int)thisOriginPrice * (100 - discount) / 100 == (int)thisFinalPrice);
         return (originPrice == thisOriginPrice && discount == thisDicount && (int)thisOriginPrice * (100 - discount) / 100 == (int)thisFinalPrice);
     }
 

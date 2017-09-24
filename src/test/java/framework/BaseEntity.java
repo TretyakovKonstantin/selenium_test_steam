@@ -29,7 +29,7 @@ public class BaseEntity extends TestNG {
 
     @AfterTest
     public void after() {
-        Browser.getInstance().getDriver().close();
+        Browser.getInstance().exit();
     }
 
     protected WebDriver getDriver() {
