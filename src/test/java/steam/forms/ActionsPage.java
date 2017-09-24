@@ -38,7 +38,7 @@ public class ActionsPage extends BaseForm {
         currentTab.goToTab();
     }
 
-    public int[] getTheBestDiscount() throws NotAllElementsHasBeenFoundException, InterruptedException {
+    public double[] getTheBestDiscount() throws NotAllElementsHasBeenFoundException, InterruptedException {
         By discountsBy = By.xpath(discountsLocator);
         By pricesBy = By.xpath(pricesLocator);
         wait.until(ExpectedConditions.stalenessOf(getElements(discountsBy).get(getElements(discountsBy).size() - 1)));
@@ -53,7 +53,6 @@ public class ActionsPage extends BaseForm {
         int maxDiscount = 0;
         int maxDiscountIndex = 0;
         for (int i = 0; i < discountsInNums.length; i++) {
-            maxDiscount = Integer.max(maxDiscount, Integer.parseInt(discountsInNums[i]));
             if (maxDiscount < Integer.parseInt(discountsInNums[i])) {
                 maxDiscount = Integer.parseInt(discountsInNums[i]);
                 maxDiscountIndex = i;
@@ -61,10 +60,11 @@ public class ActionsPage extends BaseForm {
         }
         String priceStr = prices.get(maxDiscountIndex).getText().replaceAll(",", ".");
 
-        int price = PatternHelper.getIntFromString(priceStr);
+        double price = PatternHelper.getIntFromString(priceStr);
 
         discounts.get(maxDiscountIndex).click();
-        return new int[]{price, maxDiscount};
+        System.out.println(maxDiscount + " " + maxDiscountIndex);
+        return new double[]{price, maxDiscount};
     }
 
     public GamePage confirmAgeIfNeeded(String strYear, String month, String strDay) {

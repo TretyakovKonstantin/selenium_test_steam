@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import steam.forms.ActionsPage;
 import steam.forms.GamePage;
 import steam.forms.HomePage;
+import steam.forms.InstallSteamPage;
 
 
 public class TestSteam extends BaseEntity {
@@ -20,10 +21,13 @@ public class TestSteam extends BaseEntity {
 
         ActionsPage actionsPage = homePage.selectGamesComboBoxElement(PropsHelper.getLocProperty("actions"));
         actionsPage.changeTab(PropsHelper.getLocProperty("specials"));
-        int[] priceAndDiscount = actionsPage.getTheBestDiscount();
+        double[] priceAndDiscount = actionsPage.getTheBestDiscount();
         GamePage gamePage = actionsPage.confirmAgeIfNeeded(year, month, day);
 
-        Assert.assertTrue(gamePage.checkPriceAndDiscount(priceAndDiscount));
-        Thread.sleep(10000);
+        gamePage.checkPriceAndDiscount(priceAndDiscount);
+
+        InstallSteamPage installSteamPage = gamePage.goToInstallSteamPage();
+        installSteamPage.DownloadSteam();
+        Thread.sleep(600000);
     }
 }
